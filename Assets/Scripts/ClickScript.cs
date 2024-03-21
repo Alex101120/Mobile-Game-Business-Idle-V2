@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Android;
+using Unity.VisualScripting;
 
 public class ClickScript : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ClickScript : MonoBehaviour
     public int ratio = 0;
     private bool[] upgrades = new bool[4]; // Array to store upgrade statuses
     public TMP_Text MoneyText;
+    public TMP_Text MoneyText2;
+    public Image Error;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
 
     private void Start()
@@ -45,6 +48,8 @@ public class ClickScript : MonoBehaviour
     private void UpdateUI()
     {
         MoneyText.text = "$: " + FormatMoney(money);
+        MoneyText2.text = "$: " + FormatMoney(money);
+
 
         for (int i = 0; i < UpgradeButtons.Length; i++)
         {
@@ -109,7 +114,19 @@ public class ClickScript : MonoBehaviour
             default: return 0;
         }
     }
-   
+   public void BuyTaxi()
+
+    {
+        if(money >= 30000) 
+            {
+                money = money - 30000;
+            }
+            else
+            {
+                Error.gameObject.SetActive(true);
+            }
+        
+    }
     public void AutoSaveGame()
     {
     PlayerPrefs.SetString("Money", money.ToString());
