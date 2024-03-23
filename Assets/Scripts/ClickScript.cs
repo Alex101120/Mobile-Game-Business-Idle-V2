@@ -127,6 +127,17 @@ public class ClickScript : MonoBehaviour
             }
         
     }
+    public void BuyTaxiCar()
+    {
+        if (money >= 3000)
+        {
+            money = money - 3000;
+        }
+        else
+        {
+            Error.gameObject.SetActive(true);
+        }
+    }
     public void AutoSaveGame()
     {
     PlayerPrefs.SetString("Money", money.ToString());

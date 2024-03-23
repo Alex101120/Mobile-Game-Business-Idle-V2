@@ -22,9 +22,9 @@ public class StatisticsScript : MonoBehaviour
         MoneyStat = ClickScript.moneyStatClick;
         ClickStat = ClickScript.ClickStat;
         Networth = MoneyStat;
-        ClickStatText.text=ClickStat.ToString();
-        MoneyStatText.text=FormatMoney(MoneyStat);
-        NetworthText.text = FormatMoney(Networth);
+        ClickStatText.text="Clicks :" + ClickStat.ToString();
+        MoneyStatText.text="Moneys earned from clicking:" + FormatMoney(MoneyStat) +"$";
+        NetworthText.text = "Networth:" + FormatMoney(Networth);
     }
     private string FormatMoney(long money)
     {
