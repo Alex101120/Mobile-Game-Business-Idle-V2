@@ -391,7 +391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 23-03-2024
+  m_text: 31-03-2024
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1258,7 +1258,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -1798,7 +1798,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 1003822279}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -2089,7 +2089,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -2566,7 +2566,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -2914,8 +2914,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -393.83, y: 664}
-  m_SizeDelta: {x: 566.31, y: 107.563}
+  m_AnchoredPosition: {x: -1.7453, y: 664}
+  m_SizeDelta: {x: 1350.5, y: 107.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &410415713
 CanvasRenderer:
@@ -3196,7 +3196,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -3377,7 +3377,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -4619,7 +4619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.0.5
+  m_text: Version 0.0.6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4646,7 +4646,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.5
+  m_fontSize: 60.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4908,6 +4908,7 @@ RectTransform:
   - {fileID: 2053481503}
   - {fileID: 1020512269}
   - {fileID: 410415712}
+  - {fileID: 594891192}
   - {fileID: 420426762}
   m_Father: {fileID: 611379364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5325,6 +5326,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590208374}
   m_CullTransparentMesh: 1
+--- !u!1 &594891189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594891192}
+  - component: {fileID: 594891191}
+  - component: {fileID: 594891190}
+  m_Layer: 5
+  m_Name: Total TIme Spend
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &594891190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594891189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Total TIme Spend
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 72
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 6.8330517, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &594891191
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594891189}
+  m_CullTransparentMesh: 1
+--- !u!224 &594891192
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594891189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 557744964}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.7453003, y: 559.2607}
+  m_SizeDelta: {x: 1350.5, y: 101.922}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &611379359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,7 +5472,6 @@ GameObject:
   - component: {fileID: 611379363}
   - component: {fileID: 611379362}
   - component: {fileID: 611379361}
-  - component: {fileID: 611379360}
   m_Layer: 5
   m_Name: ProfileTab
   m_TagString: Untagged
@@ -5345,25 +5479,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &611379360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611379359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc81900f8b8d57748a7d438a9c71830a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworthText: {fileID: 410415714}
-  ClickStatText: {fileID: 2053481505}
-  MoneyStatText: {fileID: 1020512267}
-  ClickScript: {fileID: 1003822276}
-  ClickStat: 0
-  MoneyStat: 0
-  Networth: 0
 --- !u!114 &611379361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5554,7 +5669,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -7113,6 +7228,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1003822276}
+        m_TargetAssemblyTypeName: ClickScript, Assembly-CSharp
+        m_MethodName: CalculateTotalIncome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &950161262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7347,6 +7474,7 @@ GameObject:
   - component: {fileID: 1003822276}
   - component: {fileID: 1003822277}
   - component: {fileID: 1003822278}
+  - component: {fileID: 1003822279}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -7389,6 +7517,9 @@ MonoBehaviour:
   moneyStatClick: 0
   ClickStat: 0
   ratio: 0
+  totalIncomePerSecond: 0
+  totalIncome: 0
+  totalIncomelong: 0
   MoneyText: {fileID: 2003185047}
   MoneyText2: {fileID: 2035482102}
   Error: {fileID: 1011069534}
@@ -7397,6 +7528,11 @@ MonoBehaviour:
   - {fileID: 1226947524}
   - {fileID: 590208376}
   - {fileID: 186902624}
+  CreateBussines: {fileID: 1003822277}
+  IncomeCalculator: {fileID: 823599522}
+  Changed: 0
+  Bussinesses: []
+  BussinesTab: {fileID: 1824051456}
 --- !u!114 &1003822277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7463,6 +7599,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1003822279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003822274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc81900f8b8d57748a7d438a9c71830a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworthText: {fileID: 410415714}
+  ClickStatText: {fileID: 2053481505}
+  MoneyStatText: {fileID: 1020512267}
+  TimeSpend: {fileID: 594891190}
+  ClickScript: {fileID: 1003822276}
+  ClickStat: 0
+  MoneyStat: 0
+  Networth: 0
+  totalTimeInGame: 0
 --- !u!1 &1004832185
 GameObject:
   m_ObjectHideFlags: 0
@@ -7805,8 +7962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -393.83, y: 771.56}
-  m_SizeDelta: {x: 566.31, y: 107.563}
+  m_AnchoredPosition: {x: 9.538, y: 771.56}
+  m_SizeDelta: {x: 1373.045, y: 107.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1034355642
 GameObject:
@@ -8314,7 +8471,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -8495,7 +8652,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -9060,7 +9217,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -9403,19 +9560,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1003822276}
         m_TargetAssemblyTypeName: ClickScript, Assembly-CSharp
-        m_MethodName: BuyTaxi
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1003822277}
-        m_TargetAssemblyTypeName: CreateBussines, Assembly-CSharp
-        m_MethodName: CloneTaxiBusiness
+        m_MethodName: BuyTaxiCompany
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10176,7 +10321,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -10876,7 +11021,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -11057,7 +11202,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -11253,6 +11398,18 @@ MonoBehaviour:
       - m_Target: {fileID: 823599522}
         m_TargetAssemblyTypeName: IncomeCalculator, Assembly-CSharp
         m_MethodName: UpdateIncome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1003822276}
+        m_TargetAssemblyTypeName: ClickScript, Assembly-CSharp
+        m_MethodName: CalculateTotalIncome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12112,7 +12269,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -13463,7 +13620,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 611379360}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatisticsScript, Assembly-CSharp
         m_MethodName: GetStat
         m_Mode: 1
@@ -14561,8 +14718,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -393.83, y: 879.12}
-  m_SizeDelta: {x: 566.31, y: 107.563}
+  m_AnchoredPosition: {x: -1.745, y: 879.12}
+  m_SizeDelta: {x: 1350.479, y: 107.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2053481504
 CanvasRenderer:

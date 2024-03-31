@@ -3,23 +3,38 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using Unity.VisualScripting;
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
+using System;
+using System.Collections;
 
 public class ClickScript : MonoBehaviour
 {
-    public long money;  
+    private float previousTotalIncome;
+    public long money;
     public long moneyStatClick;
     public int ClickStat;
     public int ratio = 0;
+    public float totalIncomePerSecond;
+    public float totalIncome;
+    public long totalIncomelong;
     private bool[] upgrades = new bool[4]; // Array to store upgrade statuses
     public TMP_Text MoneyText;
     public TMP_Text MoneyText2;
     public Image Error;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
+    public CreateBussines CreateBussines;
+    public IncomeCalculator IncomeCalculator;
+    public bool Changed;
+    public List<GameObject> Bussinesses = new List<GameObject>();
+    public GameObject BussinesTab;
 
     private void Start()
 
 
     {
+        Application.targetFrameRate = 60;
         string MoneyString;
         string moneyStatClickString;
         ratio = PlayerPrefs.GetInt("ratio");
@@ -29,12 +44,15 @@ public class ClickScript : MonoBehaviour
         moneyStatClickString = PlayerPrefs.GetString("MoneyStat");
         moneyStatClick = long.Parse(moneyStatClickString);
         CheckUpgrades();
+        StartCoroutine(AddMoneyPerSecond());
     }
 
     private void Update()
     {
         UpdateUI();
+       
         AutoSaveGame();
+
     }
 
     private void CheckUpgrades()
@@ -61,6 +79,7 @@ public class ClickScript : MonoBehaviour
             else
                 UpgradeButtons[i].gameObject.SetActive(false);
         }
+
     }
     private string FormatMoney(long money)
     {
@@ -114,18 +133,20 @@ public class ClickScript : MonoBehaviour
             default: return 0;
         }
     }
-   public void BuyTaxi()
+    public void BuyTaxiCompany()
 
     {
-        if(money >= 30000) 
-            {
-                money = money - 30000;
-            }
-            else
-            {
-                Error.gameObject.SetActive(true);
-            }
-        
+        if (money >= 30000)
+        {
+            money = money - 30000;
+            CreateBussines.CloneTaxiBusiness();
+
+        }
+        else
+        {
+            Error.gameObject.SetActive(true);
+        }
+
     }
     public void BuyTaxiCar()
     {
@@ -138,6 +159,43 @@ public class ClickScript : MonoBehaviour
             Error.gameObject.SetActive(true);
         }
     }
+    public void CalculateTotalIncome()
+    {
+        totalIncome = 0;
+        foreach (Transform child in BussinesTab.transform)
+        {
+
+            IncomeCalculator[] incomeCalculators = child.GetComponentsInChildren<IncomeCalculator>();
+
+
+            foreach (IncomeCalculator incomeCalculator in incomeCalculators)
+            {
+
+                if (incomeCalculator != null)
+                {
+                    totalIncome += incomeCalculator.GetTotalIncome();
+                    totalIncomePerSecond = (totalIncome / 3600);
+                    totalIncomelong = Convert.ToInt64(totalIncomePerSecond);
+                }
+            }
+        }
+        Debug.Log("Venit total: " + totalIncome);
+    }
+    private IEnumerator AddMoneyPerSecond()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f); // A?tepta?i 1 secund?
+
+            // Incrementa?i contorul cu 1
+            money += totalIncomelong;
+
+            Debug.Log("Count: " + money.ToString());
+        }
+    }
+
+
+
     public void AutoSaveGame()
     {
     PlayerPrefs.SetString("Money", money.ToString());

@@ -75,6 +75,10 @@ public class IncomeCalculator : MonoBehaviour
         }
         return false;
     }
+    public float GetTotalIncome()
+    {
+        return totalIncome;
+    }
 
     private float GetIncomeFromChild(string childName)
     {
@@ -84,7 +88,7 @@ public class IncomeCalculator : MonoBehaviour
         switch (childName)
         {
             case "Dacia":
-                return 100f; // Venit pentru copilul 1
+                return 5000f; // Venit pentru copilul 1
             case "Child2":
                 return 200f; // Venit pentru copilul 2
             // Adaug? mai multe cazuri pentru fiecare copil dac? este necesar
