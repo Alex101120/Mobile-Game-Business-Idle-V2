@@ -22,6 +22,8 @@ public class ClickScript : MonoBehaviour
     private bool[] upgrades = new bool[4]; // Array to store upgrade statuses
     public TMP_Text MoneyText;
     public TMP_Text MoneyText2;
+    public TMP_Text OfflineBannerText;
+    public GameObject OfflineBanner;
     public Image Error;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
     public CreateBussines CreateBussines;
@@ -29,6 +31,7 @@ public class ClickScript : MonoBehaviour
     public bool Changed;
     public List<GameObject> Bussinesses = new List<GameObject>();
     public GameObject BussinesTab;
+    private DateTime lastExitTime;
 
     private void Start()
 
@@ -43,10 +46,38 @@ public class ClickScript : MonoBehaviour
         ClickStat = PlayerPrefs.GetInt("StatClick");
         moneyStatClickString = PlayerPrefs.GetString("MoneyStat");
         moneyStatClick = long.Parse(moneyStatClickString);
+        totalIncomePerSecond = PlayerPrefs.GetFloat("TotalIncomePerScond");
         CheckUpgrades();
         StartCoroutine(AddMoneyPerSecond());
-    }
 
+        if (PlayerPrefs.HasKey("LastExitTime"))
+        {
+            // Dac? da, îl recuper?m
+            string lastExitTimeString = PlayerPrefs.GetString("LastExitTime");
+            lastExitTime = DateTime.Parse(lastExitTimeString);
+
+            // Calcul?m diferen?a de timp în secunde
+            TimeSpan timeDifference = DateTime.Now - lastExitTime;
+            float secondsDifference = (float)timeDifference.TotalSeconds;
+
+            long IncomeOffline = (long)secondsDifference * (long)totalIncomePerSecond ;
+            money = money + IncomeOffline;
+            OfflineBanner.SetActive(true);
+            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + secondsDifference + " secunde si a generat" + FormatMoney(IncomeOffline);
+
+            // Afis?m diferen?a în consol?
+            Debug.Log("Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si a generat" + IncomeOffline );
+        }
+        else
+        {
+            Debug.Log("Prima rulare a aplica?iei.");
+            OfflineBanner.SetActive(false);
+        }
+    }
+    public void Add1m()
+    {
+        money = money + 100000000;
+    }
     private void Update()
     {
         UpdateUI();
@@ -93,6 +124,24 @@ public class ClickScript : MonoBehaviour
         }
 
         return money.ToString("F1") + suffixes[suffixIndex];
+    }
+    private string FormatTime(float time)
+    {
+        string[] suffixes = { "S", "M", "H", "D" };
+        int suffixIndex = 0;
+
+        while (time >= 60 && suffixIndex < suffixes.Length - 1)
+        {
+            time /= 60;
+            suffixIndex++;
+        }
+
+        if (suffixIndex == suffixes.Length - 1 && time >= 24)
+        {
+            time /= 24;
+        }
+
+        return time.ToString("F1") + suffixes[suffixIndex];
     }
     private int GetUpgradeCost(int upgradeIndex)
     {
@@ -190,7 +239,7 @@ public class ClickScript : MonoBehaviour
             // Incrementa?i contorul cu 1
             money += totalIncomelong;
 
-            Debug.Log("Count: " + money.ToString());
+            
         }
     }
 
@@ -202,7 +251,14 @@ public class ClickScript : MonoBehaviour
     PlayerPrefs.SetInt("ratio", ratio);
     PlayerPrefs.SetInt("StatClick", ClickStat);
     PlayerPrefs.SetString("MoneyStat", moneyStatClick.ToString());
+    PlayerPrefs.SetFloat("TotalIncomePerScond", totalIncomePerSecond);
+    }
+    void OnApplicationQuit()
+    {
+        AutoSaveGame();
+        PlayerPrefs.SetString("LastExitTime", DateTime.Now.ToString());
+        PlayerPrefs.Save();
     }
 
-    
+
 }
