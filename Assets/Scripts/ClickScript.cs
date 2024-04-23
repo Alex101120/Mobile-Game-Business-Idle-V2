@@ -26,39 +26,6 @@ public class ClickScript : MonoBehaviour
         moneyStatClickString = PlayerPrefs.GetString("MoneyStat");
         moneyStatClick = long.Parse(moneyStatClickString);
         CheckUpgrades();
-<<<<<<< Updated upstream
-=======
-        StartCoroutine(AddMoneyPerSecond());
-        InvokeRepeating("Save", 0f, 30f);
-
-        if (PlayerPrefs.HasKey("LastExitTime"))
-        {
-            // Dac? da, îl recuper?m
-            string lastExitTimeString = PlayerPrefs.GetString("LastExitTime");
-            lastExitTime = DateTime.Parse(lastExitTimeString);
-
-            // Calcul?m diferen?a de timp în secunde
-            TimeSpan timeDifference = DateTime.Now - lastExitTime;
-            float secondsDifference = (float)timeDifference.TotalSeconds;
-
-            long IncomeOffline = (long)secondsDifference * (long)totalIncomePerSecond ;
-            money = money + IncomeOffline;
-            OfflineBanner.SetActive(true);
-            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + secondsDifference + " secunde si a generat" + FormatMoney(IncomeOffline);
-
-            // Afis?m diferen?a în consol?
-            Debug.Log("Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si a generat" + IncomeOffline );
-        }
-        else
-        {
-            Debug.Log("Prima rulare a aplica?iei.");
-            OfflineBanner.SetActive(false);
-        }
-    }
-    public void Add1m()
-    {
-        money = money + 100000000;
->>>>>>> Stashed changes
     }
 
     private void Update()
@@ -149,23 +116,7 @@ public class ClickScript : MonoBehaviour
     PlayerPrefs.SetInt("ratio", ratio);
     PlayerPrefs.SetInt("StatClick", ClickStat);
     PlayerPrefs.SetString("MoneyStat", moneyStatClick.ToString());
-<<<<<<< Updated upstream
-=======
-    PlayerPrefs.SetFloat("TotalIncomePerScond", totalIncomePerSecond);
     }
-
-    void Save()
-    {
-        PlayerPrefs.SetString("Money", money.ToString());
-        PlayerPrefs.SetInt("ratio", ratio);
-        PlayerPrefs.SetInt("StatClick", ClickStat);
-        PlayerPrefs.SetString("MoneyStat", moneyStatClick.ToString());
-        PlayerPrefs.SetFloat("TotalIncomePerScond", totalIncomePerSecond);
-        PlayerPrefs.SetString("LastExitTime", DateTime.Now.ToString());
-        PlayerPrefs.Save();
->>>>>>> Stashed changes
-    }
-   
 
     
 }
