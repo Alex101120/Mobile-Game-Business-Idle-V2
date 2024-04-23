@@ -11,30 +11,29 @@ public class StatisticsScript : MonoBehaviour
     public TMP_Text MoneyStatText;
     public TMP_Text TimeSpend;
     public ClickScript ClickScript;
-    public int ClickStat;
-    public long MoneyStat;
     public long Networth;
     public float totalTimeInGame = 0f;
-    float totalTime;
+   
 
     void Start()
     {
         totalTimeInGame = PlayerPrefs.GetFloat("TimeInGame");
-       
+        InvokeRepeating("GetStat", 0f, 30f);
 
     }
    
 
-    public void GetStat()
+    void GetStat()
     {
-        MoneyStat = ClickScript.moneyStatClick;
-        ClickStat = ClickScript.ClickStat;
-        Networth = MoneyStat;
-        ClickStatText.text="Clicks :" + ClickStat.ToString();
-        MoneyStatText.text="Moneys earned from clicking:" + FormatMoney(MoneyStat) +"$";
+        
+        Networth = ClickScript.moneyStatClick;
+        ClickStatText.text="Clicks :" + ClickScript.ClickStat.ToString();
+        MoneyStatText.text="Moneys earned from clicking:" + FormatMoney(ClickScript.moneyStatClick) +"$";
         NetworthText.text = "Networth:" + FormatMoney(Networth);
         TimeSpend.text="Total Time " + FormatTime(totalTimeInGame);
         PlayerPrefs.SetFloat("TimeInGame", totalTimeInGame);
+       
+        Debug.Log("Statistics Updated! ");
     }
     private string FormatMoney(long money)
     {
@@ -68,12 +67,6 @@ public class StatisticsScript : MonoBehaviour
         return time.ToString("F1") + suffixes[suffixIndex];
     }
 
-
-    private void SaveGameStat()
-    {
-        
-        PlayerPrefs.SetString("NetWorth",Networth.ToString());
-    }
     void Update()
     {
         totalTimeInGame += Time.deltaTime;

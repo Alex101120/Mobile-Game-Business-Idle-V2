@@ -12,6 +12,7 @@ public class RNGScript : MonoBehaviour
     public TMP_Text stockPriceText;
     public TMP_Text stockOwnedText;
     public TMP_Text ProfitText;
+    public TMP_Text AveragePriceText;
     public TMP_InputField inputFieldStockBuy;
     public TMP_InputField inputFieldStockSell;
     public ClickScript clickScript;
@@ -50,6 +51,7 @@ public class RNGScript : MonoBehaviour
 
     void UpdatePrice()
     {
+        AutoSave();
         float change = Random.Range(minChange, maxChange);
         startPrice += change;
         currentPrice = startPrice;
@@ -65,7 +67,7 @@ public class RNGScript : MonoBehaviour
         else
             ProfitText.color = Color.white; // or any other color for breakeven
 
-        AutoSave();
+        
 
         Debug.Log("Current stock price: " + currentPrice);
     }
@@ -91,6 +93,7 @@ public class RNGScript : MonoBehaviour
 
         stocksOwned = totalStocksBought;
         stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
+        AveragePriceText.text = "AveragePrice" + averagePrice.ToString();
     }
 
     public void SellStocks()

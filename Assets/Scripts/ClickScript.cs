@@ -49,13 +49,14 @@ public class ClickScript : MonoBehaviour
         totalIncomePerSecond = PlayerPrefs.GetFloat("TotalIncomePerScond");
         CheckUpgrades();
         StartCoroutine(AddMoneyPerSecond());
+        InvokeRepeating("SaveGame", 0f, 30f);
 
         if (PlayerPrefs.HasKey("LastExitTime"))
         {
             // Dac? da, îl recuper?m
             string lastExitTimeString = PlayerPrefs.GetString("LastExitTime");
             lastExitTime = DateTime.Parse(lastExitTimeString);
-
+           
             // Calcul?m diferen?a de timp în secunde
             TimeSpan timeDifference = DateTime.Now - lastExitTime;
             float secondsDifference = (float)timeDifference.TotalSeconds;
@@ -82,7 +83,7 @@ public class ClickScript : MonoBehaviour
     {
         UpdateUI();
        
-        AutoSaveGame();
+        
 
     }
 
@@ -245,20 +246,18 @@ public class ClickScript : MonoBehaviour
 
 
 
-    public void AutoSaveGame()
+    void SaveGame()
     {
     PlayerPrefs.SetString("Money", money.ToString());
     PlayerPrefs.SetInt("ratio", ratio);
     PlayerPrefs.SetInt("StatClick", ClickStat);
     PlayerPrefs.SetString("MoneyStat", moneyStatClick.ToString());
     PlayerPrefs.SetFloat("TotalIncomePerScond", totalIncomePerSecond);
+    PlayerPrefs.SetString("LastExitTime", DateTime.Now.ToString());
+    PlayerPrefs.Save();
+    Debug.Log("GameSaved!" );
     }
-    void OnApplicationQuit()
-    {
-        AutoSaveGame();
-        PlayerPrefs.SetString("LastExitTime", DateTime.Now.ToString());
-        PlayerPrefs.Save();
-    }
+   
 
 
 }
