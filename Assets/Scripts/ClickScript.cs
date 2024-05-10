@@ -23,6 +23,7 @@ public class ClickScript : MonoBehaviour
     public TMP_Text MoneyText;
     public TMP_Text MoneyText2;
     public TMP_Text OfflineBannerText;
+    public TMP_Text CurrentRatio;
     public GameObject OfflineBanner;
     public Image Error;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
@@ -37,16 +38,31 @@ public class ClickScript : MonoBehaviour
 
 
     {
-        Application.targetFrameRate = 60;
         string MoneyString;
-        string moneyStatClickString;
+        if (PlayerPrefs.HasKey("Money"))
+        {
+            MoneyString = PlayerPrefs.GetString("Money");
+        }
+        else
+        {
+            MoneyString = "1";
+        }
+        string moneyStatClickString ;
+        if (PlayerPrefs.HasKey("MoneyStat"))
+        {
+            moneyStatClickString = PlayerPrefs.GetString("MoneyStat");
+        }
+        else
+        {
+            moneyStatClickString = "1";
+        }
+        Application.targetFrameRate = 60;
         ratio = PlayerPrefs.GetInt("ratio");
-        MoneyString = PlayerPrefs.GetString("Money");
         money = long.Parse(MoneyString);
         ClickStat = PlayerPrefs.GetInt("StatClick");
-        moneyStatClickString = PlayerPrefs.GetString("MoneyStat");
         moneyStatClick = long.Parse(moneyStatClickString);
         totalIncomePerSecond = PlayerPrefs.GetFloat("TotalIncomePerScond");
+        CurrentRatio.text = "X" + (1+ratio).ToString();   
         CheckUpgrades();
         StartCoroutine(AddMoneyPerSecond());
         InvokeRepeating("SaveGame", 0f, 30f);
@@ -158,7 +174,7 @@ public class ClickScript : MonoBehaviour
 
     public void OnClick()
     {
-
+        
         money += 1 + ratio;
         ClickStat += 1;
         moneyStatClick += 1 + ratio;
@@ -169,6 +185,7 @@ public class ClickScript : MonoBehaviour
         ratio = GetRatioByTier(tierIndex);
         money -= GetUpgradeCost(tierIndex);
         upgrades[tierIndex] = true;
+        CurrentRatio.text = "X" + (1+ratio).ToString();
     }
 
 
