@@ -1,14 +1,16 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class RNGScript : MonoBehaviour
 {
-    public float startPrice = 100;
+    public float startPrice;
     public float maxChange = 5;
     public float minChange = -5;
     private float currentPrice;
-    private float stocksOwned;
+    public float stocksOwned;
     private float averagePrice;
+    public long NetworthStock1;
     public TMP_Text stockPriceText;
     public TMP_Text stockOwnedText;
     public TMP_Text ProfitText;
@@ -25,7 +27,7 @@ public class RNGScript : MonoBehaviour
         }
         else
         {
-            currentPrice = startPrice;
+            currentPrice = 100;
         }
 
         if (PlayerPrefs.HasKey("StocksOwned"))
@@ -45,14 +47,16 @@ public class RNGScript : MonoBehaviour
         {
             averagePrice = 0;
         }
-
+        stockPriceText.text = "Stock Price: " + currentPrice.ToString("F2");
+        stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
+        AveragePriceText.text = "AveragePrice" + averagePrice.ToString();
         InvokeRepeating("UpdatePrice", 0f, 30f);
     }
 
     void UpdatePrice()
     {
         AutoSave();
-        float change = Random.Range(minChange, maxChange);
+        float change = UnityEngine.Random.Range(minChange, maxChange);
         startPrice += change;
         currentPrice = startPrice;
 
@@ -68,7 +72,7 @@ public class RNGScript : MonoBehaviour
             ProfitText.color = Color.white; // or any other color for breakeven
 
         
-
+        NetworthStock1 = Convert.ToInt64(currentPrice) * Convert.ToInt64(stocksOwned);
         Debug.Log("Current stock price: " + currentPrice);
     }
 
@@ -114,8 +118,18 @@ public class RNGScript : MonoBehaviour
         clickScript.money += (long)sellPrice;
         stocksOwned -= stockCount;
 
-        // Update UI text for stocks owned
+        // Recalcularea pre?ului mediu dup? vânzare
+        if (stocksOwned > 0)
+        {
+            averagePrice = (averagePrice * (stocksOwned + stockCount) - sellPrice) / stocksOwned;
+        }
+        else
+        {
+            averagePrice = 0; // Dac? nu mai de?ine?i ac?iuni, pre?ul mediu devine 0
+        }
+
         stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
+        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString("F2");
     }
     void AutoSave()
     {

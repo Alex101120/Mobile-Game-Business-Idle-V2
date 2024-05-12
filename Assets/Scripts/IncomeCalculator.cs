@@ -7,10 +7,13 @@ public class IncomeCalculator : MonoBehaviour
     public TMP_Text IncomeText;
     public float totalIncome = 0f;
     public string[] childNames; // Numele copiilor care con?in venitul
+    public string CompanyNameId;
 
     private void Start()
     {
         CalculateTotalIncome();
+        Debug.Log("BussinesPing");
+        CompanyNameId = transform.name;
     }
 
     private void OnEnable()
@@ -38,15 +41,17 @@ public class IncomeCalculator : MonoBehaviour
 
     private void CalculateTotalIncome()
     {
-        totalIncome = 0f; // Reset?m venitul total la fiecare recalculare
+        totalIncome = 0f; // Reseteaz? venitul total la fiecare recalculare
 
         // Verific?m dac? obiectul p?rinte ?i numele copiilor sunt setate
         if (parentObject != null && childNames != null)
         {
             // Iter?m prin fiecare copil al obiectului p?rinte
-            for (int i = 0; i < parentObject.childCount; i++)
+            for (int i = 0; i < parentObject.transform.childCount; i++)
             {
-                Transform child = parentObject.GetChild(i);
+                // Ob?inem copilul indiferent de starea sa activ?
+                Transform child = parentObject.transform.GetChild(i);
+
                 // Verific?m dac? numele copilului se potrive?te cu cele din list?
                 if (ArrayContains(child.name, childNames))
                 {
@@ -63,6 +68,7 @@ public class IncomeCalculator : MonoBehaviour
         IncomeText.text = totalIncome.ToString();
     }
 
+
     private bool ArrayContains(string target, string[] array)
     {
         // Verific?m dac? un ?ir de caractere se g?se?te într-un array de ?iruri
@@ -70,7 +76,9 @@ public class IncomeCalculator : MonoBehaviour
         {
             if (item == target)
             {
+               
                 return true;
+              
             }
         }
         return false;

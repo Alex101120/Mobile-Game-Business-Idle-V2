@@ -25,10 +25,10 @@ public class ClickScript : MonoBehaviour
     public TMP_Text OfflineBannerText;
     public TMP_Text CurrentRatio;
     public GameObject OfflineBanner;
-    public Image Error;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
     public CreateBussines CreateBussines;
     public IncomeCalculator IncomeCalculator;
+    public GameObject Error;
     public bool Changed;
     public List<GameObject> Bussinesses = new List<GameObject>();
     public GameObject BussinesTab;
@@ -66,6 +66,7 @@ public class ClickScript : MonoBehaviour
         CheckUpgrades();
         StartCoroutine(AddMoneyPerSecond());
         InvokeRepeating("SaveGame", 0f, 30f);
+     
 
         if (PlayerPrefs.HasKey("LastExitTime"))
         {
@@ -215,17 +216,7 @@ public class ClickScript : MonoBehaviour
         }
 
     }
-    public void BuyTaxiCar()
-    {
-        if (money >= 3000)
-        {
-            money = money - 3000;
-        }
-        else
-        {
-            Error.gameObject.SetActive(true);
-        }
-    }
+    
     public void CalculateTotalIncome()
     {
         totalIncome = 0;

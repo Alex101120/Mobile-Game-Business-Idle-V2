@@ -11,6 +11,7 @@ public class StatisticsScript : MonoBehaviour
     public TMP_Text MoneyStatText;
     public TMP_Text TimeSpend;
     public ClickScript ClickScript;
+    public RNGScript RNGScript;
     public long Networth;
     public float totalTimeInGame = 0f;
    
@@ -26,7 +27,7 @@ public class StatisticsScript : MonoBehaviour
     void GetStat()
     {
         
-        Networth = ClickScript.moneyStatClick;
+        Networth = ClickScript.moneyStatClick + RNGScript.NetworthStock1;
         ClickStatText.text="Clicks :" + ClickScript.ClickStat.ToString();
         MoneyStatText.text="Moneys earned from clicking:" + FormatMoney(ClickScript.moneyStatClick) +"$";
         NetworthText.text = "Networth:" + FormatMoney(Networth);

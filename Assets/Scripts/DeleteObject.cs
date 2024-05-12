@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DeleteObject : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public CreateBussines bussines;
     public void Destroy()
     {
+        bussines.idTaxi = bussines.idTaxi - 1;
+        PlayerPrefs.SetInt("TaxiCompanyId", bussines.idTaxi);
         Destroy(gameObject);
     }
 }
