@@ -4,6 +4,7 @@ using System;
 
 public class RNGScript : MonoBehaviour
 {
+    private float maxStocks = 500000;
     public float startPrice;
     public float maxChange = 5;
     public float minChange = -5;
@@ -15,6 +16,9 @@ public class RNGScript : MonoBehaviour
     public TMP_Text stockOwnedText;
     public TMP_Text ProfitText;
     public TMP_Text AveragePriceText;
+    public TMP_Text StocksAvailable;
+    public TMP_Text StocksPercentageText; // New TMP_Text for displaying the percentage of total stocks owned
+    public TMP_Text StocksCanBuyText; // New TMP_Text for displaying how many stocks you can buy
     public TMP_InputField inputFieldStockBuy;
     public TMP_InputField inputFieldStockSell;
     public ClickScript clickScript;
@@ -33,6 +37,7 @@ public class RNGScript : MonoBehaviour
         if (PlayerPrefs.HasKey("StocksOwned"))
         {
             stocksOwned = PlayerPrefs.GetFloat("StocksOwned");
+            maxStocks = maxStocks - stocksOwned;
         }
         else
         {
@@ -49,7 +54,8 @@ public class RNGScript : MonoBehaviour
         }
         stockPriceText.text = "Stock Price: " + currentPrice.ToString("F2");
         stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
-        AveragePriceText.text = "AveragePrice" + averagePrice.ToString();
+        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString();
+        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // New line to display available stocks
         InvokeRepeating("UpdatePrice", 0f, 30f);
     }
 
@@ -71,9 +77,18 @@ public class RNGScript : MonoBehaviour
         else
             ProfitText.color = Color.white; // or any other color for breakeven
 
-        
         NetworthStock1 = Convert.ToInt64(currentPrice) * Convert.ToInt64(stocksOwned);
         Debug.Log("Current stock price: " + currentPrice);
+
+        // Update the percentage of total stocks owned
+        float stocksPercentage = (stocksOwned / maxStocks) * 100;
+        StocksPercentageText.text = "Stocks Owned: " + stocksPercentage.ToString("F2") + "%";
+
+        // Update how many stocks you can buy
+        float stocksCanBuy = clickScript.money / currentPrice;
+        StocksCanBuyText.text = "Stocks Can Buy: " + stocksCanBuy.ToString("F0");
+
+        
     }
 
     public void BuyStocks()
@@ -91,13 +106,17 @@ public class RNGScript : MonoBehaviour
             return;
         }
 
+        // Update maxStocks to represent the maximum number of stocks that can be bought
+        maxStocks += stockCount;
+
         clickScript.money -= (long)totalPrice;
         float totalStocksBought = stockCount + stocksOwned;
         averagePrice = (averagePrice * stocksOwned + currentPrice * stockCount) / totalStocksBought;
 
         stocksOwned = totalStocksBought;
         stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
-        AveragePriceText.text = "AveragePrice" + averagePrice.ToString();
+        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString("F2");
+        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // Update available stocks text
     }
 
     public void SellStocks()
@@ -117,11 +136,12 @@ public class RNGScript : MonoBehaviour
         float sellPrice = stockCount * currentPrice;
         clickScript.money += (long)sellPrice;
         stocksOwned -= stockCount;
+        maxStocks -= stockCount; // Update maxStocks after selling stocks
 
-        // Recalcularea pre?ului mediu dup? vânzare
+        // Recalculate average price after selling
         if (stocksOwned > 0)
         {
-            averagePrice = (averagePrice * (stocksOwned + stockCount) - sellPrice) / stocksOwned;
+            averagePrice = ((averagePrice * stocksOwned) - sellPrice) / (stocksOwned - stockCount);
         }
         else
         {
@@ -130,7 +150,9 @@ public class RNGScript : MonoBehaviour
 
         stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
         AveragePriceText.text = "AveragePrice: " + averagePrice.ToString("F2");
+        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // Update available stocks text
     }
+
     void AutoSave()
     {
         PlayerPrefs.SetFloat("Stock1Price", currentPrice);

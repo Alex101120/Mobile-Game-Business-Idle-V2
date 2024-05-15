@@ -33,6 +33,7 @@ public class ClickScript : MonoBehaviour
     public List<GameObject> Bussinesses = new List<GameObject>();
     public GameObject BussinesTab;
     private DateTime lastExitTime;
+    private float limitTime = 28800;
 
     private void Start()
 
@@ -77,6 +78,16 @@ public class ClickScript : MonoBehaviour
             // Calcul?m diferen?a de timp în secunde
             TimeSpan timeDifference = DateTime.Now - lastExitTime;
             float secondsDifference = (float)timeDifference.TotalSeconds;
+
+            if ( secondsDifference > limitTime)
+            {
+                secondsDifference = limitTime;
+            }
+            else
+            {
+                secondsDifference = secondsDifference;
+            }
+
 
             long IncomeOffline = (long)secondsDifference * (long)totalIncomePerSecond ;
             money = money + IncomeOffline;
