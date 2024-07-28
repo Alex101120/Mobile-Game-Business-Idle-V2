@@ -65,7 +65,7 @@ public class GarageScript : MonoBehaviour
         switch (UpgradeGarageIndex)
         {
             case 0:
-                maxCars = 7;
+                maxCars = 5;
                 PlayerPrefs.SetInt(SaveGarageIndex, UpgradeGarageIndex);
                 UpgradeGarageIndex++;
                 GarageSpaceText.text = "Space Available: " + cars.Count + "/" + maxCars;

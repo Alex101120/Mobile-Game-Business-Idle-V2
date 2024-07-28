@@ -39,7 +39,7 @@ public class IncomeCalculator : MonoBehaviour
         CalculateTotalIncome();
     }
 
-    private void CalculateTotalIncome()
+    public void CalculateTotalIncome()
     {
         totalIncome = 0f; // Reseteaz? venitul total la fiecare recalculare
 

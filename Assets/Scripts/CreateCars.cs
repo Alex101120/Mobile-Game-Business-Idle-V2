@@ -8,13 +8,15 @@ public class CreateCars : MonoBehaviour
     public GameObject originalObject; // Ma?ina original? care va fi clonat?
     public ClickScript ClickScript;
     public IncomeCalculator IncomeCalculator;
+    public string CompanyNameId;
     public GameObject Error;
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey(IncomeCalculator.CompanyNameId))
+        CompanyNameId = transform.name;
+        if (PlayerPrefs.HasKey(CompanyNameId))
         {
-            string SaveGameCars = PlayerPrefs.GetString(IncomeCalculator.CompanyNameId);
+            string SaveGameCars = PlayerPrefs.GetString(CompanyNameId);
 
             // Verific?m dac? exist? ma?ini salvate în PlayerPrefs
             if (!string.IsNullOrEmpty(SaveGameCars))

@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 15-05-2024
+  m_text: 28-07-2024
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6247,7 +6247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.0.11
+  m_text: Version 0.0.12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9418,9 +9418,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 823599521}
+  - component: {fileID: 823599524}
   - component: {fileID: 823599522}
   - component: {fileID: 823599523}
-  - component: {fileID: 823599524}
+  - component: {fileID: 823599525}
   m_Layer: 5
   m_Name: Taxi Company
   m_TagString: Untagged
@@ -9505,7 +9506,25 @@ MonoBehaviour:
   originalObject: {fileID: 1455242179}
   ClickScript: {fileID: 1003822276}
   IncomeCalculator: {fileID: 823599522}
+  CompanyNameId: 
   Error: {fileID: 1687551151}
+--- !u!114 &823599525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823599520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a571c3ade6a1a4085b818e19fdb8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GarageSpaceText: {fileID: 485387617}
+  IncomeCalculator: {fileID: 823599522}
+  GarageScript: {fileID: 662091726}
+  maxCars: 5
+  UpgradeGarageIndex: 0
 --- !u!1 &931514646
 GameObject:
   m_ObjectHideFlags: 0
@@ -12709,7 +12728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.44995117, y: -408.99997}
+  m_AnchoredPosition: {x: 0.44995117, y: -409}
   m_SizeDelta: {x: 0.89978, y: -1739.112}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305470175
