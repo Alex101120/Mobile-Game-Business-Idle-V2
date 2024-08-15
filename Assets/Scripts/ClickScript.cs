@@ -19,6 +19,7 @@ public class ClickScript : MonoBehaviour
     public float totalIncomePerSecond;
     public float totalIncome;
     public long totalIncomelong;
+    public long divyield;
     private bool[] upgrades = new bool[4]; // Array to store upgrade statuses
     public TMP_Text MoneyText;
     public TMP_Text MoneyText2;
@@ -57,6 +58,10 @@ public class ClickScript : MonoBehaviour
         {
             moneyStatClickString = "1";
         }
+        if(PlayerPrefs.HasKey("DivYield1"))
+        {
+            divyield = (long)PlayerPrefs.GetFloat("DivYield1");
+        }    
         Application.targetFrameRate = 60;
         ratio = PlayerPrefs.GetInt("ratio");
         money = long.Parse(MoneyString);
@@ -89,10 +94,12 @@ public class ClickScript : MonoBehaviour
             }
 
 
-            long IncomeOffline = (long)secondsDifference * (long)totalIncomePerSecond ;
-            money = money + IncomeOffline;
+            long IncomeOffline = (long)secondsDifference * (long)totalIncomePerSecond;
+            
+            money = money + IncomeOffline + divyield;
+
             OfflineBanner.SetActive(true);
-            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + secondsDifference + " secunde si a generat" + FormatMoney(IncomeOffline);
+            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si ai generat din bussines-uri" + FormatMoney(IncomeOffline) + "iar din dividente" + FormatMoney(divyield);
 
             // Afis?m diferen?a în consol?
             Debug.Log("Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si a generat" + IncomeOffline );

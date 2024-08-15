@@ -4,58 +4,39 @@ using System;
 
 public class RNGScript : MonoBehaviour
 {
-    private float maxStocks = 500000;
-    public float startPrice;
-    public float maxChange = 5;
-    public float minChange = -5;
+    public const float maxStocks = 500000f;
+    private float currentstocks;
+    public float startPrice = 100f;
+    public float maxChange = 5f;
+    public float minChange = -5f;
+    public const float divident = 0.2f;
+    public float MoneyDivident;
     private float currentPrice;
-    public float stocksOwned;
+    public float Stocks1Owned;
     private float averagePrice;
-    public long NetworthStock1;
+    public long NetworthStock;
+    private string stockname;
     public TMP_Text stockPriceText;
     public TMP_Text stockOwnedText;
     public TMP_Text ProfitText;
     public TMP_Text AveragePriceText;
     public TMP_Text StocksAvailable;
-    public TMP_Text StocksPercentageText; // New TMP_Text for displaying the percentage of total stocks owned
-    public TMP_Text StocksCanBuyText; // New TMP_Text for displaying how many stocks you can buy
-    public TMP_InputField inputFieldStockBuy;
-    public TMP_InputField inputFieldStockSell;
+    public TMP_Text StocksCanBuyText;
+    public TMP_InputField inputField;
     public ClickScript clickScript;
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("Stock1Price"))
-        {
-            currentPrice = PlayerPrefs.GetFloat("Stock1Price");
-        }
-        else
-        {
-            currentPrice = 100;
-        }
+        stockname = gameObject.name; // Use the GameObject's name
+        currentstocks = maxStocks;
+        currentPrice = PlayerPrefs.GetFloat(stockname + "Price", 100f);
+        Stocks1Owned = PlayerPrefs.GetFloat(stockname + "Owned", 0f);
+        averagePrice = PlayerPrefs.GetFloat(stockname + "AveragePrice", 0f);
 
-        if (PlayerPrefs.HasKey("StocksOwned"))
-        {
-            stocksOwned = PlayerPrefs.GetFloat("StocksOwned");
-            maxStocks = maxStocks - stocksOwned;
-        }
-        else
-        {
-            stocksOwned = 0;
-        }
+        currentstocks -= Stocks1Owned;
 
-        if (PlayerPrefs.HasKey("Stock1AveragePrice"))
-        {
-            averagePrice = PlayerPrefs.GetFloat("Stock1AveragePrice");
-        }
-        else
-        {
-            averagePrice = 0;
-        }
-        stockPriceText.text = "Stock Price: " + currentPrice.ToString("F2");
-        stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
-        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString();
-        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // New line to display available stocks
+        UpdateUI();
+
         InvokeRepeating("UpdatePrice", 0f, 30f);
     }
 
@@ -63,71 +44,76 @@ public class RNGScript : MonoBehaviour
     {
         AutoSave();
         float change = UnityEngine.Random.Range(minChange, maxChange);
-        startPrice += change;
-        currentPrice = startPrice;
+        currentPrice = Mathf.Max(0, startPrice + change); // Ensure price doesn't go negative
 
-        float profit = (currentPrice - averagePrice) * stocksOwned;
-        stockPriceText.text = "Stock Price: " + currentPrice.ToString("F2");
-        ProfitText.text = "Profit: " + profit.ToString("F2");
+        UpdateProfit();
+        UpdateUI();
+    }
 
-        if (profit > 0)
-            ProfitText.color = Color.green;
-        else if (profit < 0)
-            ProfitText.color = Color.red;
-        else
-            ProfitText.color = Color.white; // or any other color for breakeven
+    void UpdateProfit()
+    {
+        float profit = (currentPrice - averagePrice) * Stocks1Owned;
+        ProfitText.text = $"Profit: {profit:F2}";
+        ProfitText.color = profit > 0 ? Color.green : (profit < 0 ? Color.red : Color.white);
 
-        NetworthStock1 = Convert.ToInt64(currentPrice) * Convert.ToInt64(stocksOwned);
-        Debug.Log("Current stock price: " + currentPrice);
+        NetworthStock = Convert.ToInt64(currentPrice * Stocks1Owned);
+    }
 
-        // Update the percentage of total stocks owned
-        float stocksPercentage = (stocksOwned / maxStocks) * 100;
-        StocksPercentageText.text = "Stocks Owned: " + stocksPercentage.ToString("F2") + "%";
-
+    void UpdateUI()
+    {
+        stockPriceText.text = $"Stock Price: {currentPrice:F2}";
+        stockOwnedText.text = $"Stocks Owned: {Stocks1Owned}";
+        AveragePriceText.text = $"Average Price: {averagePrice:F2}";
+        StocksAvailable.text = $"Stocks Available: {currentstocks}";
         // Update how many stocks you can buy
         float stocksCanBuy = clickScript.money / currentPrice;
-        StocksCanBuyText.text = "Stocks Can Buy: " + stocksCanBuy.ToString("F0");
+        if(stocksCanBuy > currentstocks)
+        {
+            stocksCanBuy = currentstocks;
+        }
+        StocksCanBuyText.text = $"You can buy: {stocksCanBuy:F0} Stocks";
+    }
 
-        
+    void CalculateDividents()
+    {
+        MoneyDivident = Stocks1Owned * divident;
     }
 
     public void BuyStocks()
     {
-        if (!float.TryParse(inputFieldStockBuy.text, out float stockCount))
+        if (!float.TryParse(inputField.text, out float stockCount) || stockCount <= 0)
         {
             Debug.LogError("Invalid input for stock count!");
             return;
         }
 
         float totalPrice = stockCount * currentPrice;
+
         if (totalPrice > clickScript.money)
         {
             Debug.LogError("Insufficient funds!");
             return;
         }
 
-        // Update maxStocks to represent the maximum number of stocks that can be bought
-        maxStocks += stockCount;
+        if (stockCount > currentstocks)
+        {
+            Debug.LogError("Not enough stocks available!");
+            return;
+        }
 
         clickScript.money -= (long)totalPrice;
-        float totalStocksBought = stockCount + stocksOwned;
-        averagePrice = (averagePrice * stocksOwned + currentPrice * stockCount) / totalStocksBought;
+        float previousTotalStocks = Stocks1Owned;
+        Stocks1Owned += stockCount;
+        currentstocks -= stockCount;
+        averagePrice = (averagePrice * previousTotalStocks + currentPrice * stockCount) / Stocks1Owned;
 
-        stocksOwned = totalStocksBought;
-        stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
-        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString("F2");
-        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // Update available stocks text
+        CalculateDividents();
+        UpdateUI();
     }
 
     public void SellStocks()
     {
-        if (!float.TryParse(inputFieldStockSell.text, out float stockCount))
-        {
-            Debug.LogError("Invalid input for stock count!");
-            return;
-        }
-
-        if (stockCount <= 0 || stockCount > stocksOwned)
+        if (!float.TryParse(inputField.text, out float stockCount) || stockCount <= 0 || stockCount > Stocks1Owned)
         {
             Debug.LogError("Invalid stock count to sell!");
             return;
@@ -135,28 +121,28 @@ public class RNGScript : MonoBehaviour
 
         float sellPrice = stockCount * currentPrice;
         clickScript.money += (long)sellPrice;
-        stocksOwned -= stockCount;
-        maxStocks -= stockCount; // Update maxStocks after selling stocks
+        Stocks1Owned -= stockCount;
+        currentstocks += stockCount;
 
-        // Recalculate average price after selling
-        if (stocksOwned > 0)
+        if (Stocks1Owned > 0)
         {
-            averagePrice = ((averagePrice * stocksOwned) - sellPrice) / (stocksOwned - stockCount);
+            // Recalculate the average price correctly
+            averagePrice = ((averagePrice * (Stocks1Owned + stockCount)) - (currentPrice * stockCount)) / Stocks1Owned;
         }
         else
         {
-            averagePrice = 0; // Dac? nu mai de?ine?i ac?iuni, pre?ul mediu devine 0
+            averagePrice = 0; // If no stocks are owned, reset the average price
         }
 
-        stockOwnedText.text = "Stocks Owned: " + stocksOwned.ToString();
-        AveragePriceText.text = "AveragePrice: " + averagePrice.ToString("F2");
-        StocksAvailable.text = "Stocks Available: " + maxStocks.ToString(); // Update available stocks text
+        CalculateDividents();
+        UpdateUI();
     }
 
     void AutoSave()
     {
-        PlayerPrefs.SetFloat("Stock1Price", currentPrice);
-        PlayerPrefs.SetFloat("StocksOwned", stocksOwned);
-        PlayerPrefs.SetFloat("Stock1AveragePrice", averagePrice);
+        PlayerPrefs.SetFloat(stockname + "Price", currentPrice);
+        PlayerPrefs.SetFloat(stockname + "Owned", Stocks1Owned);
+        PlayerPrefs.SetFloat(stockname + "AveragePrice", averagePrice);
+        PlayerPrefs.SetFloat(stockname + "DivYield", MoneyDivident);
     }
 }

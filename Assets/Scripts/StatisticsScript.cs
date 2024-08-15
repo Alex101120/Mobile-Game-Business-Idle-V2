@@ -27,7 +27,7 @@ public class StatisticsScript : MonoBehaviour
     void GetStat()
     {
         
-        Networth = ClickScript.moneyStatClick + RNGScript.NetworthStock1;
+        Networth = ClickScript.moneyStatClick + RNGScript.NetworthStock;
         ClickStatText.text="Clicks :" + ClickScript.ClickStat.ToString();
         MoneyStatText.text="Moneys earned from clicking:" + FormatMoney(ClickScript.moneyStatClick) +"$";
         NetworthText.text = "Networth:" + FormatMoney(Networth);
