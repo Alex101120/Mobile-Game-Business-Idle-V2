@@ -25,6 +25,7 @@ public class ClickScript : MonoBehaviour
     public TMP_Text MoneyText2;
     public TMP_Text OfflineBannerText;
     public TMP_Text CurrentRatio;
+    public TMP_Text IncomePerSecondText;
     public GameObject OfflineBanner;
     public Button[] UpgradeButtons = new Button[4]; // Array to store upgrade buttons
     public CreateBussines CreateBussines;
@@ -72,7 +73,8 @@ public class ClickScript : MonoBehaviour
         CheckUpgrades();
         StartCoroutine(AddMoneyPerSecond());
         InvokeRepeating("SaveGame", 0f, 30f);
-     
+        IncomePerSecondText.text = "Total Income per second:" + totalIncomePerSecond + "$";
+
 
         if (PlayerPrefs.HasKey("LastExitTime"))
         {
@@ -99,7 +101,7 @@ public class ClickScript : MonoBehaviour
             money = money + IncomeOffline + divyield;
 
             OfflineBanner.SetActive(true);
-            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si ai generat din bussines-uri" + FormatMoney(IncomeOffline) + "iar din dividente" + FormatMoney(divyield);
+            OfflineBannerText.text = "Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + "si ai generat din bussines-uri" + FormatMoney(IncomeOffline) + "iar din dividente" + FormatMoney(divyield);
 
             // Afis?m diferen?a în consol?
             Debug.Log("Timpul scurs de la ultima ie?ire: " + FormatTime(secondsDifference) + " secunde si a generat" + IncomeOffline );
@@ -252,6 +254,7 @@ public class ClickScript : MonoBehaviour
                     totalIncome += incomeCalculator.GetTotalIncome();
                     totalIncomePerSecond = (totalIncome / 3600);
                     totalIncomelong = Convert.ToInt64(totalIncomePerSecond);
+                    IncomePerSecondText.text = "Total Income per second:" + totalIncomePerSecond + "$";
                 }
             }
         }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System;
 
@@ -23,6 +23,7 @@ public class RNGScript : MonoBehaviour
     public TMP_Text StocksAvailable;
     public TMP_Text StocksCanBuyText;
     public TMP_InputField inputField;
+    public TMP_Text UpOrDown;
     public ClickScript clickScript;
 
     void Start()
@@ -65,14 +66,36 @@ public class RNGScript : MonoBehaviour
         stockOwnedText.text = $"Stocks Owned: {Stocks1Owned}";
         AveragePriceText.text = $"Average Price: {averagePrice:F2}";
         StocksAvailable.text = $"Stocks Available: {currentstocks}";
-        // Update how many stocks you can buy
+
+        // Calculează procentul de schimbare
+        float percentageChange = ((currentPrice - startPrice) / startPrice) * 100;
+
+        // Verifică dacă a crescut sau a scăzut
+        if (currentPrice > startPrice)
+        {
+            UpOrDown.text = $"↑ +{percentageChange:F2}%";  // Afișează cu semn pozitiv și săgeată în sus
+            UpOrDown.color = Color.green;  // Text verde pentru creștere
+        }
+        else if (currentPrice < startPrice)
+        {
+            UpOrDown.text = $"↓ {percentageChange:F2}%";  // Afișează cu semn negativ și săgeată în jos
+            UpOrDown.color = Color.red;  // Text roșu pentru scădere
+        }
+        else
+        {
+            UpOrDown.text = $"→ 0.00%";  // Afișează neutru dacă prețul nu s-a schimbat
+            UpOrDown.color = Color.white;  // Text alb pentru nicio schimbare
+        }
+
+        // Update pentru câte acțiuni poți cumpăra
         float stocksCanBuy = clickScript.money / currentPrice;
-        if(stocksCanBuy > currentstocks)
+        if (stocksCanBuy > currentstocks)
         {
             stocksCanBuy = currentstocks;
         }
         StocksCanBuyText.text = $"You can buy: {stocksCanBuy:F0} Stocks";
     }
+
 
     void CalculateDividents()
     {

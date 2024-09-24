@@ -18,7 +18,19 @@ public class WorthCalculator : MonoBehaviour
         // Call CalculateWorthAndDividends immediately and then every 30 seconds
         InvokeRepeating("CalculateWorthAndDividends", 0f, 30f);
     }
+    private string FormatMoney(long money)
+    {
+        string[] suffixes = { "", "K", "M", "B", "T", "Q", "Qi", "S", "Sp", "O", "N", "D" };
+        int suffixIndex = 0;
 
+        while (money >= 1000 && suffixIndex < suffixes.Length - 1)
+        {
+            money /= 1000;
+            suffixIndex++;
+        }
+
+        return money.ToString("F1") + suffixes[suffixIndex];
+    }
     void CalculateWorthAndDividends()
     {
         long totalNetworth = 0;
@@ -34,7 +46,7 @@ public class WorthCalculator : MonoBehaviour
             }
         }
 
-        PortofolioWorth.text = "Portofolio Worth: " + totalNetworth;
+        PortofolioWorth.text = "Portofolio Worth: " + FormatMoney(totalNetworth);
         DividentYield.text = "Divident Yield: " + totalDivident.ToString("F2");
     }
 }
